@@ -1,3 +1,15 @@
+function Quote(author, message){
+    if(author === ''){
+        author = 'Unknown'
+    }
+    author = author.slice(1,)
+    author = author.slice(0, author.indexOf('"'))
+    message = message.slice(0, message.indexOf('"', 2)+1)
+    return {
+        author,
+        message
+    }  
+}
 fs = require('fs')
 function separate(sentence){
     const index = sentence.indexOf(',')
@@ -10,5 +22,6 @@ fs.readFile('messages.txt', 'utf8', function (err,data) {
     const messages = data.split('\n')
     let line = messages[Math.floor(Math.random()*messages.length)]
     line = separate(line)
-    console.log(line)
+    const quote = Quote(line[0], line[1])
+    console.log(`${quote.message} ~ ${quote.author}`);
 });
